@@ -1,0 +1,110 @@
+import type { AIAgent } from "@/lib/types";
+
+export const MOCK_AGENTS: AIAgent[] = [
+  {
+    id: "a1",
+    name: "Trend Hunter",
+    role: "Scans 50+ platforms for viral opportunities in real-time",
+    status: "Idle",
+    lastAction: "Standing by",
+    tasksCompleted: 0,
+    icon: "🔥",
+    color: "#F59E0B",
+  },
+  {
+    id: "a2",
+    name: "Script Writer",
+    role: "Generates hooks, scripts, and CTAs for all platforms",
+    status: "Idle",
+    lastAction: "Ready to write",
+    tasksCompleted: 0,
+    icon: "✍️",
+    color: "#8B5CF6",
+  },
+  {
+    id: "a3",
+    name: "SEO Optimizer",
+    role: "Optimizes titles, descriptions, and hashtags for discoverability",
+    status: "Idle",
+    lastAction: "Ready to optimize",
+    tasksCompleted: 0,
+    icon: "🎯",
+    color: "#3B82F6",
+  },
+  {
+    id: "a4",
+    name: "Thumbnail Strategist",
+    role: "Analyzes top-performing thumbnails and generates concepts",
+    status: "Idle",
+    lastAction: "Awaiting instructions",
+    tasksCompleted: 0,
+    icon: "🖼️",
+    color: "#06B6D4",
+  },
+  {
+    id: "a5",
+    name: "Storyboard AI",
+    role: "Creates shot lists, camera angles, and scene breakdowns",
+    status: "Idle",
+    lastAction: "Awaiting instructions",
+    tasksCompleted: 0,
+    icon: "🎬",
+    color: "#EC4899",
+  },
+  {
+    id: "a6",
+    name: "Analytics AI",
+    role: "Tracks performance, predicts viral potential, and reports insights",
+    status: "Idle",
+    lastAction: "No data to analyze yet",
+    tasksCompleted: 0,
+    icon: "📊",
+    color: "#10B981",
+  },
+  {
+    id: "a7",
+    name: "Content Planner",
+    role: "Schedules uploads, manages pipeline, and prioritizes content",
+    status: "Idle",
+    lastAction: "Pipeline empty",
+    tasksCompleted: 0,
+    icon: "📅",
+    color: "#a78bfa",
+  },
+];
+
+export const DASHBOARD_ANALYTICS = {
+  weeklyData: [
+    { day: "Mon", views: 0, engagement: 0, subscribers: 0 },
+    { day: "Tue", views: 0, engagement: 0, subscribers: 0 },
+    { day: "Wed", views: 0, engagement: 0, subscribers: 0 },
+    { day: "Thu", views: 0, engagement: 0, subscribers: 0 },
+    { day: "Fri", views: 0, engagement: 0, subscribers: 0 },
+    { day: "Sat", views: 0, engagement: 0, subscribers: 0 },
+    { day: "Sun", views: 0, engagement: 0, subscribers: 0 },
+  ],
+  platformData: [] as { platform: string; value: number; color: string }[],
+  stats: [
+    { label: "Total Views", value: 0, change: 0, unit: "", color: "#8B5CF6" },
+    { label: "Subscribers", value: 0, change: 0, unit: "", color: "#3B82F6" },
+    { label: "Avg Engagement", value: 0, change: 0, unit: "%", color: "#06B6D4" },
+    { label: "Monthly Revenue", value: 0, change: 0, unit: "$", color: "#10B981" },
+  ],
+  aiScore: 0,
+  streak: 0,
+  upcomingUploads: [] as { title: string; platform: string; date: string; time: string }[],
+  suggestions: [] as { icon: string; text: string; priority: string }[],
+};
+
+export const SCRIPT_STYLES = [
+  { id: "mrbeast", label: "MrBeast Style", iconName: "Target", description: "High energy, challenges, massive stakes" },
+  { id: "documentary", label: "Documentary", iconName: "Film", description: "Cinematic storytelling, deep research" },
+  { id: "storytelling", label: "Storytelling", iconName: "BookOpen", description: "Narrative arc, emotional journey" },
+  { id: "educational", label: "Educational", iconName: "GraduationCap", description: "Clear, structured, value-packed" },
+  { id: "genz", label: "Gen Z Style", iconName: "Zap", description: "Fast, chaotic, relatable, trendy" },
+  { id: "professional", label: "Professional", iconName: "Briefcase", description: "Polished, authoritative, B2B friendly" },
+  { id: "comedy", label: "Comedy", iconName: "Smile", description: "Funny hooks, unexpected twists, relatable" },
+  { id: "cinematic", label: "Cinematic", iconName: "Video", description: "Visual-first, atmospheric, premium feel" },
+];
+
+export const GENERATED_SCRIPTS: Record<string, Record<string, string>> = {};
