@@ -50,11 +50,13 @@ export default function RegisterPage() {
       const result = await signIn("credentials", {
         email,
         password,
-        redirectTo: "/dashboard",
+        redirect: false,
       });
 
       if (result?.error) {
         setError("Account created but failed to sign in. Please try logging in.");
+      } else {
+        window.location.href = "/dashboard";
       }
     } catch {
       setError("Something went wrong. Please try again.");

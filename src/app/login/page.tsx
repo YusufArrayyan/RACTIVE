@@ -21,11 +21,13 @@ export default function LoginPage() {
       const result = await signIn("credentials", {
         email,
         password,
-        redirectTo: "/dashboard",
+        redirect: false,
       });
 
       if (result?.error) {
         setError("Invalid email or password");
+      } else {
+        window.location.href = "/dashboard";
       }
     } catch {
       setError("Something went wrong. Please try again.");
