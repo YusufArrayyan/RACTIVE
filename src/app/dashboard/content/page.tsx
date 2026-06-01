@@ -13,7 +13,7 @@ const PRIORITY_COLORS = { High: "#EF4444", Medium: "#F59E0B", Low: "#6b6b7b" };
 
 const KANBAN_COLUMNS: { id: ContentStatus; label: string; color: string }[] = [
   { id: "Idea", label: "Ideas", color: "#6b6b7b" },
-  { id: "Scripting", label: "Scripting", color: "#3B82F6" },
+  { id: "Script", label: "Scripting", color: "#3B82F6" },
   { id: "Filming", label: "Filming", color: "#F59E0B" },
   { id: "Editing", label: "Editing", color: "#8B5CF6" },
   { id: "Scheduled", label: "Scheduled", color: "#EC4899" },
