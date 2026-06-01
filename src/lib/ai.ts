@@ -1,7 +1,13 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
+// Initialize carefully so it doesn't crash the server if the key is missing in Vercel
+const apiKey = process.env.GEMINI_API_KEY || "";
+const genAI = new GoogleGenerativeAI(apiKey);
 const geminiModel = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+
+function checkKey() {
+  if (!apiKey) throw new Error("GEMINI_API_KEY is not configured in Environment Variables.");
+}
 
 export async function analyzeTrendsWithAI(youtubeData: any[]) {
   const prompt = `
