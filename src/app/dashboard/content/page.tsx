@@ -272,22 +272,22 @@ export default function ContentPage() {
                     <select 
                       value={selectedCard.platform}
                       onChange={(e) => updateSelectedCard({ platform: e.target.value as any })}
-                      className="bg-white/[0.04] border border-white/[0.08] text-xs text-ractive-white rounded px-2 py-1 outline-none"
+                      className="bg-[var(--bg-secondary)] border border-[var(--border-default)] text-xs text-[var(--text-primary)] rounded px-2 py-1 outline-none"
                     >
-                      {["YouTube", "TikTok", "Instagram", "X", "Threads", "Facebook", "Shorts"].map(p => <option key={p} value={p} className="bg-ractive-dark">{p}</option>)}
+                      {["YouTube", "TikTok", "Instagram", "X", "Threads", "Facebook", "Shorts"].map(p => <option key={p} value={p}>{p}</option>)}
                     </select>
                     <select 
                       value={selectedCard.niche}
                       onChange={(e) => updateSelectedCard({ niche: e.target.value as any })}
-                      className="bg-white/[0.04] border border-white/[0.08] text-xs text-ractive-white rounded px-2 py-1 outline-none"
+                      className="bg-[var(--bg-secondary)] border border-[var(--border-default)] text-xs text-[var(--text-primary)] rounded px-2 py-1 outline-none"
                     >
-                      {["Tech", "AI", "Finance", "Gaming", "Lifestyle", "Storytelling", "Education", "Comedy", "Investing"].map(n => <option key={n} value={n} className="bg-ractive-dark">{n}</option>)}
+                      {["Tech", "AI", "Finance", "Gaming", "Lifestyle", "Storytelling", "Education", "Comedy", "Investing"].map(n => <option key={n} value={n}>{n}</option>)}
                     </select>
                   </div>
                   <input 
                     value={selectedCard.title}
                     onChange={(e) => updateSelectedCard({ title: e.target.value })}
-                    className="w-full bg-transparent border-b border-transparent hover:border-white/[0.08] focus:border-electric-purple/50 text-2xl font-bold text-ractive-white px-1 py-1 outline-none transition-colors"
+                    className="w-full bg-transparent border-b border-transparent hover:border-[var(--border-default)] focus:border-[var(--purple)] text-2xl font-bold text-[var(--text-primary)] px-1 py-1 outline-none transition-colors"
                     placeholder="Content Title"
                   />
                 </div>
@@ -299,48 +299,47 @@ export default function ContentPage() {
                   value={selectedCard.description}
                   onChange={(e) => updateSelectedCard({ description: e.target.value })}
                   placeholder="Short description or hook..."
-                  className="w-full bg-transparent border-b border-white/[0.05] pb-2 text-sm text-ractive-muted outline-none focus:border-electric-purple/50 transition-colors"
+                  className="w-full bg-transparent border-b border-[var(--border-default)] pb-2 text-sm text-[var(--text-secondary)] outline-none focus:border-[var(--purple)] transition-colors"
                 />
               </div>
               
-              <div className="mb-4 flex-1 flex flex-col min-h-0 bg-[#0f0f13] border border-white/[0.08] rounded-xl overflow-hidden shadow-inner">
-                <div className="bg-[#1a1a21] px-4 py-2 border-b border-white/[0.05] flex items-center justify-between">
-                  <span className="text-[10px] text-electric-purple-light uppercase font-bold tracking-wider">Script Editor</span>
-                  <span className="text-[10px] text-ractive-muted">Auto-saving locally</span>
+              <div className="mb-4 flex-1 flex flex-col min-h-0 bg-[var(--bg-primary)] border border-[var(--border-default)] rounded-xl overflow-hidden shadow-inner">
+                <div className="bg-[var(--bg-secondary)] px-4 py-2 border-b border-[var(--border-default)] flex items-center justify-between">
+                  <span className="text-[10px] text-[var(--purple)] uppercase font-bold tracking-wider">Script Editor</span>
+                  <span className="text-[10px] text-[var(--text-tertiary)]">Auto-saving locally</span>
                 </div>
                 <textarea 
                   value={selectedCard.script || ""}
                   onChange={(e) => updateSelectedCard({ script: e.target.value })}
                   placeholder="Write your masterpiece here..."
-                  className="w-full flex-1 bg-transparent p-6 text-base text-ractive-white outline-none resize-none leading-relaxed"
+                  className="w-full flex-1 bg-transparent p-6 text-base text-[var(--text-primary)] outline-none resize-none leading-relaxed"
                   style={{ fontFamily: "'Inter', sans-serif" }}
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-4 mb-4 flex-shrink-0">
-                <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.04]">
-                  <p className="text-[10px] text-ractive-muted mb-1 uppercase tracking-wider font-semibold">Status</p>
+                <div className="p-3 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-default)]">
+                  <p className="text-[10px] text-[var(--text-secondary)] mb-1 uppercase tracking-wider font-semibold">Status</p>
                   <select 
                     value={selectedCard.status}
                     onChange={(e) => updateSelectedCard({ status: e.target.value as any })}
-                    className="w-full bg-transparent text-sm font-semibold text-ractive-white outline-none cursor-pointer"
+                    className="w-full bg-transparent text-sm font-semibold text-[var(--text-primary)] outline-none cursor-pointer"
                   >
-                    {KANBAN_COLUMNS.map(c => <option key={c.id} value={c.id} className="bg-ractive-dark">{c.label}</option>)}
+                    {KANBAN_COLUMNS.map(c => <option key={c.id} value={c.id}>{c.label}</option>)}
                   </select>
                 </div>
-                <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.04]">
-                  <p className="text-[10px] text-ractive-muted mb-1 uppercase tracking-wider font-semibold">Deadline</p>
+                <div className="p-3 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-default)]">
+                  <p className="text-[10px] text-[var(--text-secondary)] mb-1 uppercase tracking-wider font-semibold">Deadline</p>
                   <input 
                     type="date"
                     value={selectedCard.scheduledDate || ""}
                     onChange={(e) => updateSelectedCard({ scheduledDate: e.target.value })}
-                    className="w-full bg-transparent text-sm font-semibold text-ractive-white outline-none cursor-pointer"
-                    style={{ colorScheme: "dark" }}
+                    className="w-full bg-transparent text-sm font-semibold text-[var(--text-primary)] outline-none cursor-pointer"
                   />
                 </div>
               </div>
-              <div className="flex gap-3 flex-shrink-0 pt-2 border-t border-white/[0.05]">
-                <button onClick={() => removeCard(selectedCard.id)} className="btn-ghost justify-center text-sm text-red-400 hover:text-red-300 px-6">🗑️ Delete</button>
+              <div className="flex gap-3 flex-shrink-0 pt-2 border-t border-[var(--border-default)]">
+                <button onClick={() => removeCard(selectedCard.id)} className="btn-ghost justify-center text-sm text-[var(--red)] hover:bg-[var(--red-light)] px-6">🗑️ Delete</button>
                 <div className="flex-1" />
                 <button onClick={() => setSelectedCard(null)} className="btn-ghost justify-center text-sm px-6">Cancel</button>
                 <button onClick={handleSaveCard} className="btn-primary justify-center text-sm px-8">💾 Save & Close</button>
