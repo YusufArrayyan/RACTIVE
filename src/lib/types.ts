@@ -34,6 +34,7 @@ export interface ContentCard {
   thumbnail?: string;
   description: string;
   estimatedViews: number;
+  script?: string;
 }
 
 export type ContentStatus =
