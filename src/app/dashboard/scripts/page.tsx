@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import * as LucideIcons from "lucide-react";
 import { DashboardShell } from "@/components/layout/DashboardShell";
@@ -19,6 +20,7 @@ const TOPICS = [
 ];
 
 export default function ScriptsPage() {
+  const router = useRouter();
   const [topic, setTopic] = useState("");
   
   useEffect(() => {
@@ -266,8 +268,8 @@ export default function ScriptsPage() {
                       script: currentScript.script
                     };
                     localStorage.setItem("ractive_content_manager", JSON.stringify([...cards, newCard]));
-                    alert("Added to Content Manager!");
-                  }} className="btn-primary flex-1 justify-center text-sm">📅 Add to Content Manager</button>
+                    router.push("/dashboard/content");
+                  }} className="btn-primary flex-1 justify-center text-sm">📅 Save to Content Manager</button>
                 </div>
               </motion.div>
             )}
