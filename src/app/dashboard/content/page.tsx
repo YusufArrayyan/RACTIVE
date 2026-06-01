@@ -84,6 +84,20 @@ export default function ContentPage() {
     setSelectedCard(null);
   };
 
+  const updateSelectedCard = (updates: Partial<ContentCard>) => {
+    setSelectedCard(prev => prev ? { ...prev, ...updates } : null);
+  };
+
+  const handleSaveCard = () => {
+    if (!selectedCard) return;
+    setCards(prev => {
+      const updated = prev.map(c => c.id === selectedCard.id ? selectedCard : c);
+      saveCards(updated);
+      return updated;
+    });
+    setSelectedCard(null);
+  };
+
   return (
     <DashboardShell title="Content Manager" subtitle="Plan, organize, and schedule your content across all platforms">
       <div className="space-y-5">
@@ -253,34 +267,81 @@ export default function ContentPage() {
               onClick={e => e.stopPropagation()}
               className="glass-card p-6 max-w-md w-full">
               <div className="flex items-start justify-between mb-4">
-                <div>
-                  <PlatformBadge platform={selectedCard.platform} />
-                  <h2 className="text-base font-bold text-ractive-white mt-2">{selectedCard.title}</h2>
+                <div className="flex-1 mr-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <select 
+                      value={selectedCard.platform}
+                      onChange={(e) => updateSelectedCard({ platform: e.target.value as any })}
+                      className="bg-white/[0.04] border border-white/[0.08] text-xs text-ractive-white rounded px-2 py-1 outline-none"
+                    >
+                      {["YouTube", "TikTok", "Instagram", "X", "Threads", "Facebook", "Shorts"].map(p => <option key={p} value={p} className="bg-ractive-dark">{p}</option>)}
+                    </select>
+                    <select 
+                      value={selectedCard.niche}
+                      onChange={(e) => updateSelectedCard({ niche: e.target.value as any })}
+                      className="bg-white/[0.04] border border-white/[0.08] text-xs text-ractive-white rounded px-2 py-1 outline-none"
+                    >
+                      {["Tech", "AI", "Finance", "Gaming", "Lifestyle", "Storytelling", "Education", "Comedy", "Investing"].map(n => <option key={n} value={n} className="bg-ractive-dark">{n}</option>)}
+                    </select>
+                  </div>
+                  <input 
+                    value={selectedCard.title}
+                    onChange={(e) => updateSelectedCard({ title: e.target.value })}
+                    className="w-full bg-transparent border-b border-transparent hover:border-white/[0.08] focus:border-electric-purple/50 text-base font-bold text-ractive-white px-1 py-0.5 outline-none transition-colors"
+                    placeholder="Content Title"
+                  />
                 </div>
                 <AIScoreRing score={selectedCard.viralScore} size="sm" showLabel={false} />
               </div>
-              <p className="text-sm text-ractive-muted mb-4">{selectedCard.description}</p>
               
-              {selectedCard.script && (
-                <div className="bg-white/[0.03] p-3 rounded-lg border border-white/[0.05] mb-4 max-h-32 overflow-y-auto">
-                  <h4 className="text-[10px] text-electric-purple-light uppercase mb-1">Generated Script</h4>
-                  <p className="text-xs text-ractive-white font-mono whitespace-pre-wrap">{selectedCard.script}</p>
-                </div>
-              )}
+              <div className="mb-4">
+                <label className="text-[10px] text-ractive-muted mb-1 block">Description</label>
+                <textarea 
+                  value={selectedCard.description}
+                  onChange={(e) => updateSelectedCard({ description: e.target.value })}
+                  className="w-full bg-white/[0.03] border border-white/[0.05] rounded-lg px-3 py-2 text-sm text-ractive-white outline-none focus:border-electric-purple/50 resize-none"
+                  rows={2}
+                />
+              </div>
+              
+              <div className="mb-4">
+                <label className="text-[10px] text-electric-purple-light uppercase mb-1 flex items-center justify-between">
+                  <span>Generated Script</span>
+                </label>
+                <textarea 
+                  value={selectedCard.script || ""}
+                  onChange={(e) => updateSelectedCard({ script: e.target.value })}
+                  placeholder="Paste or write your script here..."
+                  className="w-full bg-white/[0.03] border border-white/[0.05] rounded-lg px-3 py-2 text-xs text-ractive-white font-mono outline-none focus:border-electric-purple/50 resize-none h-32"
+                />
+              </div>
 
               <div className="grid grid-cols-2 gap-3 mb-4">
                 <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.05]">
                   <p className="text-[10px] text-ractive-muted mb-1">Status</p>
-                  <p className="text-sm font-semibold text-ractive-white">{selectedCard.status}</p>
+                  <select 
+                    value={selectedCard.status}
+                    onChange={(e) => updateSelectedCard({ status: e.target.value as any })}
+                    className="w-full bg-transparent text-sm font-semibold text-ractive-white outline-none cursor-pointer"
+                  >
+                    {KANBAN_COLUMNS.map(c => <option key={c.id} value={c.id} className="bg-ractive-dark">{c.label}</option>)}
+                  </select>
                 </div>
                 <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.05]">
-                  <p className="text-[10px] text-ractive-muted mb-1">AI Priority</p>
-                  <p className="text-sm font-semibold" style={{ color: PRIORITY_COLORS[selectedCard.aiPriority] }}>{selectedCard.aiPriority}</p>
+                  <p className="text-[10px] text-ractive-muted mb-1">Deadline / Schedule</p>
+                  <input 
+                    type="date"
+                    value={selectedCard.scheduledDate || ""}
+                    onChange={(e) => updateSelectedCard({ scheduledDate: e.target.value })}
+                    className="w-full bg-transparent text-sm font-semibold text-ractive-white outline-none cursor-pointer"
+                    style={{ colorScheme: "dark" }}
+                  />
                 </div>
               </div>
               <div className="flex gap-3">
-                <button onClick={() => removeCard(selectedCard.id)} className="btn-ghost flex-1 justify-center text-sm text-red-400 hover:text-red-300">🗑️ Delete</button>
-                <button onClick={() => setSelectedCard(null)} className="btn-primary flex-1 justify-center text-sm">Close</button>
+                <button onClick={() => removeCard(selectedCard.id)} className="btn-ghost justify-center text-sm text-red-400 hover:text-red-300 px-4">🗑️ Delete</button>
+                <button onClick={() => setSelectedCard(null)} className="btn-ghost justify-center text-sm flex-1">Cancel</button>
+                <button onClick={handleSaveCard} className="btn-primary justify-center text-sm flex-1">💾 Save</button>
               </div>
             </motion.div>
           </motion.div>
