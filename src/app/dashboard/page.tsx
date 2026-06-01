@@ -11,6 +11,7 @@ import { formatNumber, formatPercent } from "@/lib/utils";
 import { DASHBOARD_ANALYTICS } from "@/lib/mock-data/agents";
 import { Flame, Bot, CalendarDays } from "lucide-react";
 import { AreaChart, Area, BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip, PieChart, Pie, Cell } from "recharts";
+import { useRouter } from "next/navigation";
 
 const PRIORITY_COLORS: Record<string, string> = {
   urgent: "var(--red)",
@@ -20,6 +21,7 @@ const PRIORITY_COLORS: Record<string, string> = {
 };
 
 export default function DashboardPage() {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState<"views" | "engagement" | "subscribers">("views");
   const [trends, setTrends] = useState<any[]>([]);
   const [loadingTrends, setLoadingTrends] = useState(true);
@@ -305,6 +307,7 @@ export default function DashboardPage() {
                   return (
                     <div
                       key={topic + i}
+                      onClick={() => router.push(`/dashboard/scripts?topic=${encodeURIComponent(topic)}`)}
                       className="p-3 rounded-xl border border-[var(--border-default)] bg-[var(--bg-secondary)] hover:border-[var(--border-strong)] transition-colors cursor-pointer"
                     >
                       <div className="flex items-start justify-between mb-2">

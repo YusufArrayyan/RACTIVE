@@ -93,12 +93,15 @@ export default function CompetitorsPage() {
     }
   };
 
+  const [selectedCompetitor, setSelectedCompetitor] = useState<Competitor | null>(null);
+
   const removeCompetitor = (name: string) => {
     setCompetitors(prev => {
       const updated = prev.filter(c => c.name !== name);
       saveCompetitors(updated);
       return updated;
     });
+    if (selectedCompetitor?.name === name) setSelectedCompetitor(null);
   };
 
   return (
@@ -156,7 +159,7 @@ export default function CompetitorsPage() {
                   </div>
                 ))}
               </div>
-              <button className="btn-ghost btn-sm w-full justify-center">View Full Analysis →</button>
+              <button onClick={() => setSelectedCompetitor(c)} className="btn-ghost btn-sm w-full justify-center">View Full Analysis →</button>
             </GlassCard>
           ))}
           {competitors.length === 0 && (
@@ -167,6 +170,49 @@ export default function CompetitorsPage() {
           )}
         </div>
       </div>
+
+      {/* Competitor Modal */}
+      {selectedCompetitor && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setSelectedCompetitor(null)}>
+          <div className="glass-card p-6 max-w-md w-full" onClick={e => e.stopPropagation()}>
+            <div className="flex items-start justify-between mb-6">
+              <div className="flex items-center gap-4">
+                {selectedCompetitor.thumbnail ? (
+                  <img src={selectedCompetitor.thumbnail} alt={selectedCompetitor.name} className="w-14 h-14 rounded-full border border-white/10" />
+                ) : (
+                  <div className="w-14 h-14 rounded-full bg-electric-purple/20 flex items-center justify-center text-electric-purple-light font-bold text-xl">
+                    {selectedCompetitor.name.charAt(0)}
+                  </div>
+                )}
+                <div>
+                  <h2 className="text-xl font-bold text-ractive-white">{selectedCompetitor.name}</h2>
+                  <p className="text-xs text-ractive-muted">{selectedCompetitor.handle}</p>
+                </div>
+              </div>
+              <AIScoreRing score={selectedCompetitor.viralScore} size="md" showLabel />
+            </div>
+
+            <div className="space-y-4 mb-6">
+              <div className="p-4 rounded-xl bg-white/[0.03] border border-white/[0.05]">
+                <h4 className="text-[10px] text-electric-purple-light uppercase mb-2">Content Strategy</h4>
+                <p className="text-xs text-ractive-white leading-relaxed">
+                  Based on AI analysis, this creator focuses heavily on high-retention editing and fast-paced hooks. Their posting cadence of {selectedCompetitor.cadence} suggests a quality-over-quantity approach.
+                </p>
+              </div>
+              <div className="p-4 rounded-xl bg-white/[0.03] border border-white/[0.05]">
+                <h4 className="text-[10px] text-electric-purple-light uppercase mb-2">Content Gaps You Can Fill</h4>
+                <ul className="text-xs text-ractive-white list-disc pl-4 space-y-1">
+                  <li>More actionable step-by-step tutorials</li>
+                  <li>Behind-the-scenes content (highly requested in their comments)</li>
+                  <li>Shorter, more punchy YouTube Shorts</li>
+                </ul>
+              </div>
+            </div>
+
+            <button onClick={() => setSelectedCompetitor(null)} className="btn-primary w-full justify-center">Close Analysis</button>
+          </div>
+        </div>
+      )}
     </DashboardShell>
   );
 }

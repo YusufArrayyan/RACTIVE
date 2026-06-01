@@ -101,7 +101,29 @@ export default function ContentPage() {
           </div>
           <div className="flex items-center gap-3">
             <div className="text-xs text-ractive-muted">{cards.length} total pieces</div>
-            <button className="btn-primary btn-sm">+ New Content</button>
+            <button 
+              onClick={() => {
+                const newCard = {
+                  id: "card-" + Date.now(),
+                  title: "New Content Idea",
+                  description: "Click to edit this idea",
+                  status: "Idea" as ContentStatus,
+                  platform: "YouTube",
+                  niche: "General",
+                  aiPriority: "Medium" as "Low" | "Medium" | "High",
+                  viralScore: 0,
+                  estimatedViews: 0,
+                };
+                setCards(prev => {
+                  const updated = [...prev, newCard];
+                  saveCards(updated);
+                  return updated;
+                });
+              }}
+              className="btn-primary btn-sm"
+            >
+              + New Content
+            </button>
           </div>
         </div>
 

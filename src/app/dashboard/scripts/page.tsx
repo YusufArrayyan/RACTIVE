@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import * as LucideIcons from "lucide-react";
 import { DashboardShell } from "@/components/layout/DashboardShell";
@@ -20,6 +20,13 @@ const TOPICS = [
 
 export default function ScriptsPage() {
   const [topic, setTopic] = useState("");
+  
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const t = params.get("topic");
+    if (t) setTopic(t);
+  }, []);
+
   const [selectedStyle, setSelectedStyle] = useState("mrbeast");
   const [selectedPlatform, setSelectedPlatform] = useState("YouTube");
   const [generating, setGenerating] = useState(false);

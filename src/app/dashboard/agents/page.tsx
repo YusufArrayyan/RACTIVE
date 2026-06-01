@@ -5,10 +5,13 @@ import { GlassCard } from "@/components/ui/GlassCard";
 import { AIScoreRing } from "@/components/ui/AIScoreRing";
 import { StaggerContainer, StaggerItem } from "@/components/ui/PageTransition";
 import { MOCK_AGENTS } from "@/lib/mock-data/agents";
+import { useRouter } from "next/navigation";
 
 const STATUS_COLORS = { Active: "#10B981", Processing: "#F59E0B", Idle: "#6b6b7b" };
 
 export default function AgentsPage() {
+  const router = useRouter();
+
   return (
     <DashboardShell title="AI Agents System" subtitle="Your AI team works 24/7 to optimize your content pipeline">
       <StaggerContainer className="space-y-6">
@@ -56,7 +59,12 @@ export default function AgentsPage() {
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] text-ractive-muted">{agent.tasksCompleted.toLocaleString()} tasks completed</span>
-                  <button className="text-[10px] px-2.5 py-1 rounded-lg bg-white/[0.04] text-ractive-muted hover:text-ractive-white border border-white/[0.06] transition-colors">Configure</button>
+                  <button 
+                    onClick={() => router.push("/dashboard/settings")}
+                    className="text-[10px] px-2.5 py-1 rounded-lg bg-white/[0.04] text-ractive-muted hover:text-ractive-white border border-white/[0.06] transition-colors"
+                  >
+                    Configure
+                  </button>
                 </div>
               </GlassCard>
             ))}

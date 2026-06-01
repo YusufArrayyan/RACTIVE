@@ -12,6 +12,7 @@ import { formatNumber } from "@/lib/utils";
 import type { Trend } from "@/lib/types";
 import { AreaChart, Area, ResponsiveContainer } from "recharts";
 import { Search, Globe, Filter } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const REGION_MAP: Record<string, { code: string; label: string }> = {
   Global:    { code: "US", label: "Global (US)" },
@@ -31,6 +32,7 @@ const SAT_COLORS: Record<string, string> = {
 };
 
 export default function TrendsPage() {
+  const router = useRouter();
   const [platform, setPlatform] = useState("All");
   const [niche, setNiche] = useState("All");
   const [country, setCountry] = useState("Indonesia");
@@ -242,7 +244,12 @@ export default function TrendsPage() {
                     </div>
                   </GlassCard>
 
-                  <button className="btn-primary w-full justify-center">Generate Script for This Trend</button>
+                  <button 
+                    onClick={() => router.push(`/dashboard/scripts?topic=${encodeURIComponent(selected.title)}`)}
+                    className="btn-primary w-full justify-center"
+                  >
+                    Generate Script for This Trend
+                  </button>
                 </motion.div>
               )}
             </AnimatePresence>
