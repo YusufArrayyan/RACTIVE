@@ -259,7 +259,7 @@ export default function ScriptsPage() {
                       description: "AI Generated Script: " + topic,
                       status: "Idea",
                       platform: selectedPlatform,
-                      niche: "AI Generated",
+                      niche: "AI",
                       aiPriority: "High",
                       viralScore: Math.floor(Math.random() * 15) + 80,
                       estimatedViews: Math.floor(Math.random() * 500000) + 100000,

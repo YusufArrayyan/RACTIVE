@@ -103,13 +103,13 @@ export default function ContentPage() {
             <div className="text-xs text-ractive-muted">{cards.length} total pieces</div>
             <button 
               onClick={() => {
-                const newCard = {
+                const newCard: ContentCard = {
                   id: "card-" + Date.now(),
                   title: "New Content Idea",
                   description: "Click to edit this idea",
                   status: "Idea" as ContentStatus,
                   platform: "YouTube",
-                  niche: "General",
+                  niche: "Tech",
                   aiPriority: "Medium" as "Low" | "Medium" | "High",
                   viralScore: 0,
                   estimatedViews: 0,
